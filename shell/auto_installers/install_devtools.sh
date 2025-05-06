@@ -51,7 +51,7 @@ pacman -S --needed --noconfirm \
 
 log_info "Installing AUR IDEs..."
 sudo -u "$SUDO_USER" yay -S --needed --noconfirm \
-    visual-studio-code-bin eclipse-java-bin || log_error "Failed to install AUR IDEs"
+    visual-studio-code-bin eclipse-java-bin android-studio || log_error "Failed to install AUR IDEs"
 
 log_info "Cleaning package cache..."
 paccache -r || log_warn "Failed to clean package cache"
