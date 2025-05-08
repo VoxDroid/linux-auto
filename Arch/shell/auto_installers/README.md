@@ -195,6 +195,36 @@ This repository contains 18 shell scripts to automate the setup of a comprehensi
   ```
 - **Post-Installation**: Configure SDDM themes via system settings.
 
+### 19. install_filesystem_compatibility.sh
+- **Purpose**: Installs filesystem compatibility tools for Arch Linux.
+- **Packages**: ntfs-3g, exfat-utils, dosfstools, mtools, fuse2, fuse3, cifs-utils, btrfs-progs, xfsprogs, f2fs-tools, udftools, nfs-utils, smbclient, e2fsprogs, nilfs-utils, jfsutils, reiserfsprogs, zfs-utils, hfsprogs (AUR).
+- **Installation**:
+  ```bash
+  chmod +x install_filesystem_compatibility.sh
+  sudo ./install_filesystem_compatibility.sh
+  ```
+- **Post-Installation**: Configure mount points for non-native filesystems (e.g., NTFS, exFAT) in `/etc/fstab` if needed. For ZFS, ensure the ZFS kernel module is installed and enabled.
+
+### 20. install_drivers.sh
+- **Purpose**: Installs driver-related packages for Arch Linux.
+- **Packages**: linux-firmware, mesa, lib32-mesa, vulkan-intel, vulkan-radeon, lib32-vulkan-intel, lib32-vulkan-radeon, libva-intel-driver, libva-mesa-driver, xf86-video-amdgpu, xf86-video-intel, nvidia, nvidia-utils, lib32-nvidia-utils, amd-ucode, intel-ucode, libvdpau, lib32-libvdpau, bluez, bluez-utils, sof-firmware, fwupd, broadcom-wl (AUR).
+- **Installation**:
+  ```bash
+  chmod +x install_drivers.sh
+  sudo ./install_drivers.sh
+  ```
+- **Post-Installation**: Reboot to ensure drivers (e.g., NVIDIA, Broadcom) are loaded. Update microcode with `sudo grub-mkconfig -o /boot/grub/grub.cfg` if using GRUB. Enable `bluetooth.service` for Bluetooth support.
+
+### 21. install_diskutil.sh
+- **Purpose**: Installs disk utility tools for Arch Linux.
+- **Packages**: parted, gparted, gptfdisk, lvm2, cryptsetup, smartmontools, hdparm, nvme-cli, testdisk, wipe, partimage, dar, mdadm, dmraid, fatresize.
+- **Installation**:
+  ```bash
+  chmod +x install_diskutil.sh
+  sudo ./install_diskutil.sh
+  ```
+- **Post-Installation**: Use `smartctl` to check disk health (e.g., `sudo smartctl -a /dev/sda`). Configure LVM or RAID setups if required. Ensure `cryptsetup` is set up for encrypted partitions.
+
 ## Troubleshooting
 - **Yay Errors**: Ensure `base-devel` and `git` are installed (`sudo pacman -S base-devel git`). Run `yay -Syu` as the non-root user to update AUR packages.
 - **Makepkg as Root**: Scripts use `sudo -u $SUDO_USER` to avoid this. Verify `$SUDO_USER` is set (`echo $SUDO_USER`).
