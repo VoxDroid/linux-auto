@@ -30,6 +30,20 @@ fi
 log_info "Updating system..."
 pacman -Syu --noconfirm || log_error "Failed to update system"
 
+if ! command -v yay &>/dev/null; then
+    log_info "Installing Yay AUR helper..."
+    pacman -S --needed --noconfirm base-devel git || log_error "Failed to install base-devel and git"
+        sudo -u "$SUDO_USER" bash -c '
+        cd /tmp
+        git clone https://aur.archlinux.org/yay.git || exit 1
+        cd yay
+        makepkg -si --noconfirm || exit 1
+    '
+    rm -rf /tmp/yay
+else
+    log_info "Yay is already installed"
+fi
+
 log_info "Installing game development tools..."
 pacman -S --needed --noconfirm \
     godot blender || log_error "Failed to install game dev tools"
