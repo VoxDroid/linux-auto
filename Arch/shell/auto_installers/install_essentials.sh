@@ -48,7 +48,9 @@ log_info "Installing essential applications..."
 pacman -S --needed --noconfirm \
     torbrowser-launcher \
     gwenview dolphin \
-    terminator tree || log_error "Failed to install essential applications"
+    terminator tree \
+    vim neovim \
+    neofetch || log_error "Failed to install essential applications"
 
 log_info "Installing Brave browser..."
 sudo -u "$SUDO_USER" yay -S --needed --noconfirm brave-bin || log_error "Failed to install Brave"
