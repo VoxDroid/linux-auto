@@ -30,6 +30,9 @@ fi
 log_info "Updating system..."
 pacman -Syu --noconfirm || log_error "Failed to update system"
 
+log_info "Installing pacman-contrib..."
+pacman -S --needed --noconfirm pacman-contrib || log_error "Failed to install pacman-contrib"
+
 log_info "Installing virtualization tools..."
 pacman -S --needed --noconfirm \
     qemu virt-manager libvirt || log_error "Failed to install virtualization tools"
