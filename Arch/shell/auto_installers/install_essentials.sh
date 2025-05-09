@@ -56,7 +56,8 @@ pacman -S --needed --noconfirm \
     gwenview dolphin \
     terminator tree \
     vim neovim \
-    neofetch tmux || log_error "Failed to install essential applications"
+    neofetch tmux \
+    networkmanager || log_error "Failed to install essential applications"
 
 log_info "Installing Brave browser..."
 sudo -u "$SUDO_USER" yay -S --needed --noconfirm brave-bin || log_error "Failed to install Brave"
