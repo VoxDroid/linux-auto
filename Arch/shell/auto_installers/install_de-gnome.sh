@@ -63,9 +63,6 @@ sudo -u "$SUDO_USER" yay -S --needed --noconfirm \
     papirus-icon-theme arc-gtk-theme \
     gnome-settings extension-manager || log_warn "Failed to install some AUR packages"
 
-log_info "Installing optional GNOME language packs (if needed)..."
-pacman -S --needed --noconfirm gnome-l10n-* || log_warn "Failed to install some language packs"
-
 log_info "Enabling GDM display manager..."
 systemctl enable gdm || log_warn "Failed to enable GDM"
 
