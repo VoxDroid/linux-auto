@@ -225,6 +225,16 @@ This repository contains 18 shell scripts to automate the setup of a comprehensi
   ```
 - **Post-Installation**: Use `smartctl` to check disk health (e.g., `sudo smartctl -a /dev/sda`). Configure LVM or RAID setups if required. Ensure `cryptsetup` is set up for encrypted partitions.
 
+### 22. install_vcs.sh
+- **Purpose**: Installs version control systems and related tools for Arch Linux.
+- **Packages**: git, mercurial, subversion, bazaar, cvs, git-lfs, tig, meld, kdiff3, github-desktop-bin (via Yay AUR helper).
+- **Installation**:
+  ```bash
+  chmod +x install_vcs.sh
+  sudo ./install_vcs.sh
+  ```
+- **Post-Installation**: Configure Git with `git config --global user.name "Your Name"` and `git config --global user.email "your.email@example.com"`. Use `meld` or `kdiff3` for visual diff and merge operations. Launch GitHub Desktop with `github-desktop` for GUI-based Git management.
+
 ## Troubleshooting
 - **Yay Errors**: Ensure `base-devel` and `git` are installed (`sudo pacman -S base-devel git`). Run `yay -Syu` as the non-root user to update AUR packages.
 - **Makepkg as Root**: Scripts use `sudo -u $SUDO_USER` to avoid this. Verify `$SUDO_USER` is set (`echo $SUDO_USER`).
