@@ -48,7 +48,7 @@ fi
 
 log_info "Installing GNOME desktop environment..."
 pacman -S --needed --noconfirm \
-    gnome gnome-core gdm \
+    gnome gdm \
     gnome-tweaks gnome-shell-extensions gnome-control-center \
     gnome-system-monitor gnome-disk-utility gnome-keyring \
     gnome-backgrounds gnome-themes-extra \
