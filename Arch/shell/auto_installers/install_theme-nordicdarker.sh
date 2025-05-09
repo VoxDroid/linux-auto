@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Installs the entire Nordic theme repository as a single folder for Arch Linux
-# Clones the repository, places the Nordic folder in local (~/.themes) and global (/usr/share/themes), then cleans up
+# Installs Nordic Darker GTK themes for Arch Linux
+# Downloads Nordic-darker and Nordic-darker-v40, installs locally (~/.themes) and globally (/usr/share/themes), then cleans up
 # Run with sudo: sudo bash install_theme-nordicdarker.sh
 
 set -e
@@ -23,41 +23,55 @@ if [[ -z "$SUDO_USER" ]]; then
     log_error "SUDO_USER not set. Please run this script with sudo."
 fi
 
-read -p "Install the entire Nordic theme repository locally and globally? (y/N): " confirm
+read -p "Install Nordic Darker GTK themes locally and globally? (y/N): " confirm
 if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
     log_error "Script execution cancelled"
 fi
 
 log_info "Installing dependencies..."
-pacman -S --needed --noconfirm git xz tar || log_error "Failed to install dependencies"
+pacman -S --needed --noconfirm xz tar wget || log_error "Failed to install dependencies"
 
-TEMP_DIR="/tmp/nordic-themes"
-REPO_URL="https://github.com/EliverLara/Nordic.git"
+TEMP_DIR="/tmp/nordic-darker-themes"
+mkdir -p "$TEMP_DIR" || log_error "Failed to create temporary directory"
 
-log_info "Cloning Nordic theme repository..."
-rm -rf "$TEMP_DIR"  # Ensure clean directory
-git clone "$REPO_URL" "$TEMP_DIR" || log_error "Failed to clone Nordic repository"
+THEME_URLS=(
+    "https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic-darker.tar.xz"
+    "https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic-darker-v40.tar.xz"
+)
+
+log_info "Downloading Nordic Darker theme files..."
+for url in "${THEME_URLS[@]}"; do
+    filename=$(basename "$url")
+    wget -q "$url" -O "$TEMP_DIR/$filename" || log_error "Failed to download $filename"
+done
 
 log_info "Installing themes locally for user $SUDO_USER..."
 LOCAL_THEME_DIR="/home/$SUDO_USER/.themes"
 mkdir -p "$LOCAL_THEME_DIR" || log_error "Failed to create local theme directory"
 chown "$SUDO_USER:$SUDO_USER" "$LOCAL_THEME_DIR"
 
-# Move the entire Nordic folder to local themes
-mv "$TEMP_DIR" "$LOCAL_THEME_DIR/Nordic" || log_error "Failed to install Nordic folder to local themes"
-chown -R "$SUDO_USER:$SUDO_USER" "$LOCAL_THEME_DIR/Nordic"
+for file in "$TEMP_DIR"/*.tar.xz; do
+    theme_name=$(basename "$file" .tar.xz)
+    tar -xf "$file" -C "$TEMP_DIR" || log_error "Failed to extract $file"
+    if [[ -d "$TEMP_DIR/$theme_name" ]]; then
+        mv "$TEMP_DIR/$theme_name" "$LOCAL_THEME_DIR/" || log_error "Failed to install $theme_name to local themes"
+    fi
+done
+chown -R "$SUDO_USER:$SUDO_USER" "$LOCAL_THEME_DIR"
 
 log_info "Installing themes globally..."
 GLOBAL_THEME_DIR="/usr/share/themes"
 mkdir -p "$GLOBAL_THEME_DIR" || log_error "Failed to create global theme directory"
 
-# Clone again for global installation to avoid moving the local copy
-git clone "$REPO_URL" "$TEMP_DIR" || log_error "Failed to clone Nordic repository for global installation"
-
-# Move the entire Nordic folder to global themes
-mv "$TEMP_DIR" "$GLOBAL_THEME_DIR/Nordic" || log_error "Failed to install Nordic folder to global themes"
+for file in "$TEMP_DIR"/*.tar.xz; do
+    theme_name=$(basename "$file" .tar.xz)
+    tar -xf "$file" -C "$TEMP_DIR" || log_error "Failed to extract $file"
+    if [[ -d "$TEMP_DIR/$theme_name" ]]; then
+        mv "$TEMP_DIR/$theme_name" "$GLOBAL_THEME_DIR/" || log_error "Failed to install $theme_name to global themes"
+    fi
+done
 
 log_info "Cleaning up temporary files..."
 rm -rf "$TEMP_DIR" || log_warn "Failed to clean up temporary directory"
 
-log_info "Nordic theme repository installation complete! Configure themes via your desktop environment's settings."
+log_info "Nordic Darker GTK themes installation complete! Configure themes via your desktop environment's settings."
