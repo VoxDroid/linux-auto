@@ -30,6 +30,9 @@ fi
 log_info "Updating system..."
 pacman -Syu --noconfirm || log_error "Failed to update system"
 
+log_info "Installing pacman-contrib..."
+pacman -S --needed --noconfirm pacman-contrib || log_error "Failed to install pacman-contrib"
+
 log_info "Installing shell enhancements..."
 pacman -S --needed --noconfirm \
     zsh fish zsh-autosuggestions zsh-completions zsh-syntax-highlighting \
