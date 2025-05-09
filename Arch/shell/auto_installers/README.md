@@ -190,8 +190,8 @@ This repository contains 18 shell scripts to automate the setup of a comprehensi
 - **Packages**: Plasma Desktop, Plasma PA, Plasma NM, KDE Plasma Addons, Latte Dock, SDDM Theme (AUR).
 - **Installation**:
   ```bash
-  chmod +x install_desktop_enhancements.sh
-  sudo ./install_desktop_enhancements.sh
+  chmod +x install_de-plasmakde.sh
+  sudo ./install_de-plasmakde.sh
   ```
 - **Post-Installation**: Configure SDDM themes via system settings.
 
@@ -234,6 +234,16 @@ This repository contains 18 shell scripts to automate the setup of a comprehensi
   sudo ./install_vcs.sh
   ```
 - **Post-Installation**: Configure Git with `git config --global user.name "Your Name"` and `git config --global user.email "your.email@example.com"`. Use `meld` or `kdiff3` for visual diff and merge operations. Launch GitHub Desktop with `github-desktop` for GUI-based Git management.
+
+### 23. install_de-gnome.sh
+- **Purpose**: Installs a comprehensive GNOME desktop environment.
+- **Packages**: GNOME, GNOME Core, GDM, GNOME Tweaks, GNOME Shell Extensions, Nautilus, GNOME Terminal, Papirus Icon Theme, Arc GTK Theme, Dash to Dock (AUR), AppIndicator (AUR).
+- **Installation**:
+  ```bash
+  chmod +x install_de-gnome.sh
+  sudo ./install_de-gnome.sh
+  ```
+- **Post-Installation**: Configure GNOME settings and extensions via Settings or GNOME Tweaks.
 
 ## Troubleshooting
 - **Yay Errors**: Ensure `base-devel` and `git` are installed (`sudo pacman -S base-devel git`). Run `yay -Syu` as the non-root user to update AUR packages.
