@@ -54,7 +54,7 @@ pacman -S --needed --noconfirm \
     gnome-backgrounds gnome-themes-extra \
     nautilus sushi gnome-terminal gnome-screenshot \
     eog evince file-roller gedit totem \
-    orca gnome-accessibility-themes \
+    orca \
     gnome-remote-desktop || log_error "Failed to install GNOME packages"
 
 log_info "Installing additional GNOME themes and extensions from AUR..."
