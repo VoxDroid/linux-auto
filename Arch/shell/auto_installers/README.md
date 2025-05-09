@@ -185,7 +185,7 @@ This repository contains 18 shell scripts to automate the setup of a comprehensi
   ```
 - **Post-Installation**: Configure Timeshift for snapshots.
 
-### 18. install_kdedesktop.sh
+### 18. install_de-plasmakde.sh
 - **Purpose**: Installs KDE desktop enhancements.
 - **Packages**: Plasma Desktop, Plasma PA, Plasma NM, KDE Plasma Addons, Latte Dock, SDDM Theme (AUR).
 - **Installation**:
