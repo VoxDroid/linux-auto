@@ -30,6 +30,9 @@ fi
 log_info "Updating system..."
 pacman -Syu --noconfirm || log_error "Failed to update system"
 
+log_info "Installing pacman-contrib..."
+pacman -S --needed --noconfirm pacman-contrib || log_error "Failed to install pacman-contrib"
+
 log_info "Installing network/security tools..."
 pacman -S --needed --noconfirm \
     networkmanager nmap wireshark-qt bind metasploit openvpn || log_error "Failed to install network/security tools"
