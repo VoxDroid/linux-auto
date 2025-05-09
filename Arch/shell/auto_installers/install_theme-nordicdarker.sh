@@ -34,6 +34,7 @@ pacman -S --needed --noconfirm xz tar wget git || log_error "Failed to install d
 
 TEMP_DIR="/tmp/nordic-darker-themes"
 mkdir -p "$TEMP_DIR" || log_error "Failed to create temporary directory"
+chown "$SUDO_USER:$SUDO_USER" "$TEMP_DIR" || log_error "Failed to set permissions for temporary directory"
 
 # Download GTK themes
 THEME_URLS=(
@@ -87,7 +88,7 @@ fi
 # Install GTK themes globally
 log_info "Installing GTK themes globally..."
 GLOBAL_THEME_DIR="/usr/share/themes"
-mkdir -p "$GLOBAL_THEME_DIR" || log_error "Failed to create global theme Salerno directory"
+mkdir -p "$GLOBAL_THEME_DIR" || log_error "Failed to create global theme directory"
 
 for file in "$TEMP_DIR"/*.tar.xz; do
     theme_name=$(basename "$file" .tar.xz)
