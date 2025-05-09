@@ -58,11 +58,8 @@ pacman -S --needed --noconfirm \
 
 log_info "Installing additional KDE themes and tools from AUR..."
 sudo -u "$SUDO_USER" yay -S --needed --noconfirm \
-    lightly-qt sddm-theme-corners-git plasma5-applets-window-buttons \
+    sddm-theme-corners-git plasma5-applets-window-buttons \
     plasma5-applets-eventcalendar || log_warn "Failed to install some AUR packages"
-
-log_info "Installing optional KDE language packs (if needed)..."
-pacman -S --needed --noconfirm kde-l10n-* || log_warn "Failed to install some language packs"
 
 log_info "Enabling SDDM display manager..."
 systemctl enable sddm || log_warn "Failed to enable SDDM"
