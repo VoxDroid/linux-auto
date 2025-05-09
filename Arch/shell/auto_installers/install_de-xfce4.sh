@@ -56,7 +56,7 @@ pacman -S --needed --noconfirm \
     xfce4-power-manager xfce4-notifyd xfce4-screenshooter \
     xfce4-taskmanager xfce4-appfinder xfce4-pulseaudio-plugin \
     thunar thunar-archive-plugin thunar-media-tags-plugin \
-    greybird-gtk-theme arc-gtk-theme papirus-icon-theme || log_error "Failed to install XFCE packages"
+    papirus-icon-theme || log_error "Failed to install XFCE packages"
 
 log_info "Installing additional XFCE tools and themes from AUR..."
 sudo -u "$SUDO_USER" yay -S --needed --noconfirm \
