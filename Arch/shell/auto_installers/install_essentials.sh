@@ -51,7 +51,7 @@ pacman -S --needed --noconfirm \
     tar gzip bzip2 xz lzop zstd \
     p7zip unrar \
     jq yq \
-    bind \.
+    bind \
     torbrowser-launcher \
     gwenview dolphin \
     terminator tree \
