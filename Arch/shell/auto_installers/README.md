@@ -245,6 +245,16 @@ This repository contains 18 shell scripts to automate the setup of a comprehensi
   ```
 - **Post-Installation**: Configure GNOME settings and extensions via Settings or GNOME Tweaks.
 
+### 24. install_de-xfce4.sh
+- **Purpose**: Installs a comprehensive XFCE desktop environment with a lightweight and customizable setup.
+- **Packages**: XFCE4, XFCE4 Goodies, LightDM, LightDM GTK Greeter, XFCE Panel, XFCE Settings, XFCE Terminal, Thunar, XFCE Power Manager, XFCE Notifyd, XFCE Screenshooter, Greybird GTK Theme, Arc GTK Theme, Papirus Icon Theme, XFCE Docklike Plugin (AUR), XFCE Weather Plugin (AUR), XFCE WhiskerMenu Plugin (AUR).
+- **Installation**:
+  ```bash
+  chmod +x install_de-xfce4.sh
+  sudo ./install_de-xfce4.sh
+  ```
+- **Post-Installation**: Configure XFCE settings and themes via XFCE Settings Manager or LightDM GTK Greeter Settings.
+
 ## Troubleshooting
 - **Yay Errors**: Ensure `base-devel` and `git` are installed (`sudo pacman -S base-devel git`). Run `yay -Syu` as the non-root user to update AUR packages.
 - **Makepkg as Root**: Scripts use `sudo -u $SUDO_USER` to avoid this. Verify `$SUDO_USER` is set (`echo $SUDO_USER`).
