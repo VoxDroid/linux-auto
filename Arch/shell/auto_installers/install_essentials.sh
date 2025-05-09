@@ -46,6 +46,12 @@ fi
 
 log_info "Installing essential applications..."
 pacman -S --needed --noconfirm \
+    wget curl rsync \
+    zip unzip \
+    tar gzip bzip2 xz lzop zstd \
+    p7zip unrar \
+    jq yq \
+    bind \.
     torbrowser-launcher \
     gwenview dolphin \
     terminator tree \
