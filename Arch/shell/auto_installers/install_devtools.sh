@@ -30,6 +30,9 @@ fi
 log_info "Updating system..."
 pacman -Syu --noconfirm || log_error "Failed to update system"
 
+log_info "Installing pacman-contrib..."
+pacman -S --needed --noconfirm pacman-contrib || log_error "Failed to install pacman-contrib"
+
 if ! command -v yay &>/dev/null; then
     log_info "Installing Yay AUR helper..."
     pacman -S --needed --noconfirm base-devel git || log_error "Failed to install base-devel and git"
