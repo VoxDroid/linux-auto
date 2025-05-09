@@ -255,6 +255,16 @@ This repository contains 18 shell scripts to automate the setup of a comprehensi
   ```
 - **Post-Installation**: Configure XFCE settings and themes via XFCE Settings Manager or LightDM GTK Greeter Settings.
 
+### 25. install_theme-nordicdarker.sh
+- **Purpose**: Installs Nordic Darker GTK themes and Nordic folder icons for a cohesive, dark-themed desktop experience.
+- **Packages**: Nordic Darker GTK themes (Nordic-darker, Nordic-darker-v40), Nordic folder icons (cloned from Nordic repository, kde/folders/*), dependencies (xz, tar, wget, git).
+- **Installation**:
+  ```bash
+  chmod +x install_theme-nordicdarker.sh
+  sudo ./install_theme-nordicdarker.sh
+  ```
+- **Post-Installation**: Configure GTK themes and icon themes via your desktop environment’s settings (e.g., LXAppearance for XFCE, System Settings for KDE).
+
 ## Troubleshooting
 - **Yay Errors**: Ensure `base-devel` and `git` are installed (`sudo pacman -S base-devel git`). Run `yay -Syu` as the non-root user to update AUR packages.
 - **Makepkg as Root**: Scripts use `sudo -u $SUDO_USER` to avoid this. Verify `$SUDO_USER` is set (`echo $SUDO_USER`).
