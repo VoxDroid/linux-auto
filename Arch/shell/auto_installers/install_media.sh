@@ -30,6 +30,9 @@ fi
 log_info "Updating system..."
 pacman -Syu --noconfirm || log_error "Failed to update system"
 
+log_info "Installing pacman-contrib..."
+pacman -S --needed --noconfirm pacman-contrib || log_error "Failed to install pacman-contrib"
+
 log_info "Installing media tools..."
 pacman -S --needed --noconfirm \
     gimp vlc flameshot kolourpaint audacity kdenlive || log_error "Failed to install media tools"
