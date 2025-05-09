@@ -30,6 +30,9 @@ fi
 log_info "Updating system..."
 pacman -Syu --noconfirm || log_error "Failed to update system"
 
+log_info "Installing pacman-contrib..."
+pacman -S --needed --noconfirm pacman-contrib || log_error "Failed to install pacman-contrib"
+
 log_info "Installing containerization tools..."
 pacman -S --needed --noconfirm \
     docker docker-compose podman buildah || log_error "Failed to install containerization tools"
