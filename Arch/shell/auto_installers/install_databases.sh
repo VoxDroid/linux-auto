@@ -50,7 +50,7 @@ fi
 log_info "Installing databases..."
 pacman -S --needed --noconfirm \
     postgresql mariadb sqlite mysql-workbench \
-    redis memcached || log_error "Failed to install databases"
+    redis memcached sqlitebrowser || log_error "Failed to install databases"
 
 log_info "Installing MongoDB..."
 sudo -u "$SUDO_USER" yay -S --needed --noconfirm mongodb-bin || log_error "Failed to install MongoDB"
