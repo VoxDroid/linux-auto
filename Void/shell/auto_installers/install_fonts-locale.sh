@@ -34,18 +34,6 @@ log_info "Installing fonts..."
 xbps-install -S --yes \
     dejavu-fonts-ttf font-liberation-ttf noto-fonts-ttf noto-fonts-ttf-extra || log_error "Failed to install fonts"
 
-log_info "Installing Poppins font..."
-# Poppins is not in Void repos or Flathub as a font package, so download from Google Fonts
-sudo -u "$SUDO_USER" bash -c '
-    mkdir -p ~/.local/share/fonts/poppins
-    cd /tmp
-    wget -q https://fonts.google.com/download?family=Poppins -O poppins.zip || exit 1
-    unzip -q poppins.zip -d poppins || exit 1
-    mv poppins/*.ttf ~/.local/share/fonts/poppins/ || exit 1
-    fc-cache -fv || exit 1
-    rm -rf poppins poppins.zip
-' || log_error "Failed to install Poppins font"
-
 log_info "Generating all locales..."
 # Uncomment all locales in /etc/default/libc-locales
 sed -i 's/^#\([a-zA-Z0-9._-]\+\s\+[a-zA-Z0-9._-]\+\)/\1/' /etc/default/libc-locales || log_error "Failed to uncomment locales"
