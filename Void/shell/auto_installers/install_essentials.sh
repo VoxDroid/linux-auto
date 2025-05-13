@@ -35,7 +35,7 @@ xbps-install -S --yes \
     wget curl rsync \
     zip unzip \
     tar gzip bzip2 lzop zstd \
-    p7zip unrar \
+    p7zip \
     jq yq \
     bind \
     torbrowser-launcher \
