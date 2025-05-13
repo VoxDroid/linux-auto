@@ -34,7 +34,7 @@ log_info "Installing essential applications..."
 xbps-install -S --yes \
     wget curl rsync \
     zip unzip \
-    tar gzip bzip2 xz-utils lzop zstd \
+    tar gzip bzip2 lzop zstd \
     p7zip unrar \
     jq yq \
     bind \
