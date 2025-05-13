@@ -56,7 +56,7 @@ fi
 log_info "Installing build dependencies for compiling XFCE plugins..."
 xbps-install -S --yes \
     git make gcc pkg-config autoconf automake libtool \
-    xfce4-dev-tools libxfce4ui-devel libxfce4panel-devel \
+    xfce4-dev-tools libxfce4ui-devel \
     gtk+3-devel glib-devel || log_error "Failed to install build dependencies"
 
 # Define plugins and their GitLab URLs
