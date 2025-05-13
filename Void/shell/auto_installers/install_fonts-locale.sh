@@ -32,8 +32,7 @@ xbps-install -Su || log_error "Failed to update system"
 
 log_info "Installing fonts..."
 xbps-install -S --yes \
-    dejavu-fonts-ttf font-liberation-ttf noto-fonts-ttf noto-fonts-ttf-extra \
-    adobe-source-code-pro-fonts adobe-source-sans-fonts adobe-source-serif-fonts || log_error "Failed to install fonts"
+    dejavu-fonts-ttf font-liberation-ttf noto-fonts-ttf noto-fonts-ttf-extra || log_error "Failed to install fonts"
 
 log_info "Installing Poppins font..."
 # Poppins is not in Void repos or Flathub as a font package, so download from Google Fonts
