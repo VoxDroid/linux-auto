@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Installs XFCE desktop environment and enhancements for Void Linux
-# Includes core XFCE, utilities, themes, LightDM, and xfce4-docklike-plugin, xfce4-weather-plugin, xfce4-whiskermenu-plugin
-# Automatically compiles plugins from source if not found in Flatpak
+# Includes core XFCE, utilities, themes, and LightDM with XFCE greeter
 # Run with sudo: sudo bash install_de-xfce4_void.sh
 
 set -e
@@ -44,7 +43,7 @@ log_info "Installing LightDM display manager and greeter..."
 xbps-install -S --yes \
     lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings || log_error "Failed to install LightDM packages"
 
-log_info "Setting up Flatpak for additional XFCE plugins..."
+log_info "Setting up Flatpak for potential future use..."
 if ! command -v flatpak &>/dev/null; then
     log_info "Installing Flatpak..."
     xbps-install -S --yes flatpak || log_error "Failed to install Flatpak"
@@ -53,45 +52,10 @@ else
     log_info "Flatpak is already installed"
 fi
 
-log_info "Installing build dependencies for compiling XFCE plugins..."
+log_info "Installing build dependencies for XFCE environment..."
 xbps-install -S --yes \
     git make gcc pkg-config autoconf automake libtool \
-    xfce4-dev-tools libxfce4ui-devel \
-    gtk+3-devel glib-devel || log_error "Failed to install build dependencies"
-
-# Define plugins and their GitLab URLs
-declare -A plugins=(
-    ["xfce4-docklike-plugin"]="https://gitlab.xfce.org/panel-plugins/xfce4-docklike-plugin"
-    ["xfce4-weather-plugin"]="https://gitlab.xfce.org/panel-plugins/xfce4-weather-plugin"
-    ["xfce4-whiskermenu-plugin"]="https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin"
-)
-
-log_info "Attempting to install XFCE plugins (docklike, weather, whiskermenu)..."
-for plugin in "${!plugins[@]}"; do
-    # First, try Flatpak
-    search_result=$(flatpak search "$plugin" | grep -i "$plugin" || true)
-    if [[ -n "$search_result" ]]; then
-        app_id=$(echo "$search_result" | awk '{print $1}' | head -n 1)
-        log_info "Found $plugin in Flathub as $app_id. Installing..."
-        sudo -u "$SUDO_USER" flatpak install -y flathub "$app_id" || log_warn "Failed to install $plugin from Flathub"
-    else
-        log_info "$plugin not found in Flathub. Compiling from source..."
-        # Compile from source
-        build_dir="/tmp/$plugin"
-        rm -rf "$build_dir"
-        sudo -u "$SUDO_USER" bash -c "
-            git clone ${plugins[$plugin]} $build_dir || exit 1
-            cd $build_dir
-            ./autogen.sh || exit 1
-            make || exit 1
-            sudo make install || exit 1
-        " && log_info "$plugin compiled and installed successfully" || {
-            log_warn "Failed to compile/install $plugin. Continuing with other installations."
-            continue
-        }
-        rm -rf "$build_dir"
-    fi
-done
+    xfce4-dev-tools libxfce4ui-devel gtk+3-devel glib-devel || log_error "Failed to install build dependencies"
 
 log_info "Enabling LightDM display manager..."
 ln -sf /etc/sv/lightdm /var/service/ || log_warn "Failed to enable LightDM"
@@ -101,4 +65,3 @@ xbps-remove -O || log_warn "Failed to clean package cache"
 
 log_info "XFCE desktop environment installation complete!"
 log_info "Configure LightDM and XFCE themes via XFCE Settings Manager."
-log_info "If any plugins failed to install, check warnings above for details."
