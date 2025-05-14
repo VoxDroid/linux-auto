@@ -35,7 +35,7 @@ log_info "Installing XFCE desktop environment and core components..."
 xbps-install -S --yes \
     xfce4 xfce4-panel xfce4-settings xfce4-terminal \
     xfce4-power-manager xfce4-notifyd xfce4-screenshooter \
-    xfce4-taskmanager xfce4-appfinder xfce4-pulseaudio-plugin \
+    xfce4-taskmanager xfce4-appfinder xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin \
     Thunar thunar-archive-plugin thunar-media-tags-plugin \
     papirus-icon-theme || log_error "Failed to install XFCE packages"
 
