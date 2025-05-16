@@ -33,7 +33,7 @@ xbps-install -Su || log_error "Failed to update system"
 log_info "Installing shell enhancements..."
 xbps-install -S --yes \
     zsh zsh-autosuggestions zsh-completions zsh-syntax-highlighting \
-    powerline powerline-fonts tmux curl git || log_error "Failed to install shell enhancements"
+    tmux curl git || log_error "Failed to install shell enhancements"
 
 log_info "Cleaning package cache..."
 xbps-remove -O || log_warn "Failed to clean package cache"
