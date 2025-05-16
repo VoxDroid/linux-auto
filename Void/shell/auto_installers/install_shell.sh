@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Installs shell enhancements for Void Linux (Zsh, Fish, Powerline, Oh My Zsh, Powerlevel10k, etc.)
+# Installs shell enhancements for Void Linux (Zsh, Powerline, Oh My Zsh, Powerlevel10k, etc.)
 # Run with sudo: sudo bash install_shell_enhancements_void.sh
 
 set -e
@@ -22,7 +22,7 @@ if [[ -z "$SUDO_USER" ]]; then
     log_error "SUDO_USER not set. Please run this script with sudo."
 fi
 
-read -p "Install shell enhancements (Zsh, Fish, Oh My Zsh, Powerlevel10k, etc.)? (y/N): " confirm
+read -p "Install shell enhancements (Zsh, Oh My Zsh, Powerlevel10k, etc.)? (y/N): " confirm
 if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
     log_error "Script execution cancelled"
 fi
@@ -32,7 +32,7 @@ xbps-install -Su || log_error "Failed to update system"
 
 log_info "Installing shell enhancements..."
 xbps-install -S --yes \
-    zsh fish zsh-autosuggestions zsh-completions zsh-syntax-highlighting \
+    zsh zsh-autosuggestions zsh-completions zsh-syntax-highlighting \
     powerline powerline-fonts tmux curl git || log_error "Failed to install shell enhancements"
 
 log_info "Cleaning package cache..."
@@ -60,5 +60,5 @@ su - "$SUDO_USER" -c "echo 'source /usr/share/zsh/plugins/zsh-syntax-highlightin
 su - "$SUDO_USER" -c "echo 'fpath=(/usr/share/zsh/site-functions /usr/share/zsh/functions/Completion/* \$fpath)' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-completions"
 
 log_info "Shell enhancements, Oh My Zsh, and Powerlevel10k installation complete!"
-log_info "Run 'chsh -s /bin/zsh' or 'chsh -s /bin/fish' to switch shells."
+log_info "Run 'chsh -s /bin/zsh' to switch shell."
 log_info "Powerlevel10k is set as the Zsh theme with completions enabled. Run 'p10k configure' to customize it."
