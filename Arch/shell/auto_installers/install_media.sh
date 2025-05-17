@@ -35,7 +35,7 @@ pacman -S --needed --noconfirm pacman-contrib || log_error "Failed to install pa
 
 log_info "Installing media tools..."
 pacman -S --needed --noconfirm \
-    gimp vlc flameshot kolourpaint audacity kdenlive || log_error "Failed to install media tools"
+    gimp vlc flameshot kolourpaint audacity kdenlive krita inkscape || log_error "Failed to install media tools"
 
 log_info "Cleaning package cache..."
 paccache -r || log_warn "Failed to clean package cache"
