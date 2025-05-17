@@ -37,13 +37,6 @@ log_info "Installing fonts..."
 apt install -y \
     fonts-dejavu fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-color-emoji || log_error "Failed to install fonts"
 
-log_info "Installing Poppins Font..."
-mkdir -p /usr/share/fonts/truetype/poppins
-wget -q -O /tmp/poppins.zip "https://fonts.google.com/download?family=Poppins" || log_error "Failed to download Poppins Font"
-unzip -q /tmp/poppins.zip -d /usr/share/fonts/truetype/poppins || log_error "Failed to unzip Poppins Font"
-rm /tmp/poppins.zip
-fc-cache -f || log_warn "Failed to update font cache"
-
 log_info "Generating all locales..."
 sed -i 's/^#\([a-zA-Z0-9._-]\+\s\+[a-zA-Z0-9._-]\+\)/\1/' /etc/locale.gen || log_error "Failed to uncomment locales"
 locale-gen || log_error "Failed to generate locales"
