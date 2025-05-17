@@ -35,8 +35,7 @@ apt install -y curl wget fontconfig || log_error "Failed to install required too
 
 log_info "Installing fonts..."
 apt install -y \
-    fonts-dejavu fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-color-emoji \
-    fonts-source-code-pro fonts-adobe-sourcesans3 fonts-adobe-sourceserif4 || log_error "Failed to install fonts"
+    fonts-dejavu fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-color-emoji || log_error "Failed to install fonts"
 
 log_info "Installing Poppins Font..."
 mkdir -p /usr/share/fonts/truetype/poppins
