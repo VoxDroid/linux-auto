@@ -46,8 +46,8 @@ snap install discord || log_error "Failed to install Discord"
 log_info "Installing Slack via Snap..."
 snap install slack || log_error "Failed to install Slack"
 
-log_info "Installing Telegram via apt..."
-apt install -y telegram-desktop || log_error "Failed to install Telegram"
+log_info "Installing Telegram via Snap..."
+snap install telegram-desktop || log_error "Failed to install Telegram"
 
 log_info "Cleaning package cache..."
 apt autoremove -y && apt autoclean || log_warn "Failed to clean package cache"
