@@ -52,7 +52,7 @@ apt install -y \
     gnome-shell-extension-manager || log_error "Failed to install additional themes and utilities"
 
 log_info "Installing Dash to Dock and AppIndicator extensions..."
-apt install -y gnome-shell-extension-dashtodock gnome-shell-extension-appindicator || log_error "Failed to install GNOME extensions"
+apt install -y gnome-shell-extension-appindicator || log_error "Failed to install GNOME extensions"
 
 log_info "Enabling GDM display manager..."
 systemctl enable gdm3 || log_warn "Failed to enable GDM"
