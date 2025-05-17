@@ -47,13 +47,6 @@ apt install -y \
     neofetch tmux \
     network-manager || log_error "Failed to install essential applications"
 
-log_info "Adding Tor Browser PPA..."
-add-apt-repository -y ppa:micahflee/ppa || log_error "Failed to add Tor Browser PPA"
-apt update || log_error "Failed to update after adding PPA"
-
-log_info "Installing Tor Browser..."
-apt install -y torbrowser-launcher || log_error "Failed to install Tor Browser"
-
 log_info "Installing Brave browser..."
 curl -fsSL https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.asc | gpg --dearmor -o /usr/share/keyrings/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | tee /etc/apt/sources.list.d/brave-browser-release.list
