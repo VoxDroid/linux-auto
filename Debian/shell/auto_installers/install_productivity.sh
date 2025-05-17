@@ -45,9 +45,6 @@ snap install onlyoffice-desktopeditors || log_error "Failed to install OnlyOffic
 log_info "Installing Obsidian..."
 snap install obsidian --classic || log_error "Failed to install Obsidian"
 
-log_info "Installing Notion via Snap..."
-snap install notion-snap || log_error "Failed to install Notion"
-
 log_info "Cleaning package cache..."
 apt autoremove -y && apt autoclean || log_warn "Failed to clean package cache"
 
