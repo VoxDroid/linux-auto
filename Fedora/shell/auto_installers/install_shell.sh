@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Installs shell enhancements for Fedora/RHEL-based systems (Zsh, Fish, Powerline, Oh My Zsh, Powerlevel10k, etc.)
+# Run with sudo: sudo bash install_shell_enhancements_fedora.sh
+
+set -e
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
+log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
+log_error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
+
+if [[ $EUID -ne 0 ]]; then
+    log_error "This script must be run as root (use sudo)"
+fi
+
+if [[ -z "$SUDO_USER" ]]; then
+    log_error "SUDO_USER not set. Please run this script with sudo."
+fi
+
+read -p "Install shell enhancements (Zsh, Fish, Oh My Zsh, Powerlevel10k, etc.)? (y/N): " confirm
+if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+    log_error "Script execution cancelled"
+fi
+
+log_info "Updating system..."
+dnf update -y || log_error "Failed to update system"
+
+log_info "Installing shell enhancements..."
+dnf install -y \
+    zsh fish zsh-autosuggestions zsh-syntax-highlighting \
+    powerline powerline-fonts tmux curl git || log_error "Failed to install shell enhancements"
+
+log_info "Cleaning package cache..."
+dnf autoremove -y && dnf clean all || log_warn "Failed to clean package cache"
+
+log_info "Installing Oh My Zsh for user $SUDO_USER..."
+if [[ -d "/home/$SUDO_USER/.oh-my-zsh" ]]; then
+    log_info "Oh My Zsh already installed, skipping..."
+else
+    sudo -u "$SUDO_USER" --set-home sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended" || log_error "Failed to install Oh My Zsh"
+fi
+
+log_info "Installing Powerlevel10k for user $SUDO_USER..."
+if [[ -d "/home/$SUDO_USER/.oh-my-zsh/custom/themes/powerlevel10k" ]]; then
+    log_info "Powerlevel10k already installed, skipping..."
+else
+    sudo -u "$SUDO_USER" --set-home mkdir -p "/home/$SUDO_USER/.oh-my-zsh/custom/themes" || log_error "Failed to create Powerlevel10k themes directory"
+    sudo -u "$SUDO_USER" --set-home git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/$SUDO_USER/.oh-my-zsh/custom/themes/powerlevel10k || log_error "Failed to install Powerlevel10k"
+    sudo -u "$SUDO_USER" --set-home sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' /home/$SUDO_USER/.zshrc || log_warn "Failed to set Powerlevel10k theme"
+fi
+
+log_info "Enabling Zsh plugins for user $SUDO_USER..."
+sudo -u "$SUDO_USER" --set-home bash -c "echo 'source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-autosuggestions"
+sudo -u "$SUDO_USER" --set-home bash -c "echo 'source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-syntax-highlighting"
+sudo -u "$SUDO_USER" --set-home bash -c "echo 'fpath=(/usr/share/zsh/site-functions \$fpath)' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-completions"
+
+log_info "Shell enhancements, Oh My Zsh, and Powerlevel10k installation complete!"
+log_info "Run 'chsh -s /bin/zsh' to switch shell."
+log_info "Powerlevel10k is set as the Zsh theme with completions enabled. Run 'p10k configure' to customize it."
