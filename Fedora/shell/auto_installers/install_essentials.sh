@@ -48,8 +48,8 @@ dnf install -y \
     NetworkManager || log_error "Failed to install essential applications"
 
 log_info "Installing Brave browser..."
-dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+dnf install -y dnf-plugins-core || log_error "Failed to install dnf-plugins-core"
+dnf copr enable -y jerrycasiano/Brave-Browser || log_error "Failed to enable Brave Browser Copr repository"
 dnf install -y brave-browser || log_error "Failed to install Brave"
 
 log_info "Cleaning package cache..."
