@@ -40,7 +40,7 @@ dnf install -y \
     gnome-tweaks gnome-shell-extension-common gnome-control-center \
     gnome-system-monitor gnome-disk-utility gnome-keyring \
     gnome-backgrounds adwaita-icon-theme \
-    nautilus gnome-sushi gnome-terminal gnome-screenshot \
+    nautilus gnome-terminal gnome-screenshot \
     eog evince file-roller gedit totem \
     orca \
     gnome-remote-desktop || log_error "Failed to install GNOME packages"
