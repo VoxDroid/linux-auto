@@ -39,7 +39,7 @@ ln -sf /var/lib/snapd/snap /snap || log_warn "Failed to create snap symlink"
 
 log_info "Installing productivity tools..."
 dnf install -y \
-    libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-texmaths \
+    libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-TexMaths \
     okular evince zathura zathura-pdf-poppler \
     hunspell hunspell-en-US || log_error "Failed to install productivity tools"
 
