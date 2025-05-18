@@ -59,7 +59,7 @@ pacman -S --needed --noconfirm \
     gwenview dolphin \
     terminator tree \
     vim neovim \
-    neofetch tmux \
+    fastfetch tmux \
     networkmanager || log_error "Failed to install essential applications"
 
 log_info "Installing Brave browser..."
