@@ -36,7 +36,6 @@ log_info "Installing required tools..."
 dnf install -y curl wget || log_error "Failed to install required tools"
 
 log_info "Installing GNOME desktop environment..."
-dnf groupinstall -y "GNOME Desktop Environment" || log_error "Failed to install GNOME group"
 dnf install -y \
     gnome-tweaks gnome-shell-extension-common gnome-control-center \
     gnome-system-monitor gnome-disk-utility gnome-keyring \
