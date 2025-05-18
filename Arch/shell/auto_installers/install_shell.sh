@@ -45,22 +45,23 @@ log_info "Installing Oh My Zsh for user $SUDO_USER..."
 if [[ -d "/home/$SUDO_USER/.oh-my-zsh" ]]; then
     log_info "Oh My Zsh already installed, skipping..."
 else
-    su - "$SUDO_USER" -c "sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" --unattended" || log_error "Failed to install Oh My Zsh"
+    sudo -u "$SUDO_USER" --set-home sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended" || log_error "Failed to install Oh My Zsh"
 fi
 
 log_info "Installing Powerlevel10k for user $SUDO_USER..."
 if [[ -d "/home/$SUDO_USER/.oh-my-zsh/custom/themes/powerlevel10k" ]]; then
     log_info "Powerlevel10k already installed, skipping..."
 else
-    su - "$SUDO_USER" -c "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/$SUDO_USER/.oh-my-zsh/custom/themes/powerlevel10k" || log_error "Failed to install Powerlevel10k"
-    su - "$SUDO_USER" -c "sed -i 's/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"powerlevel10k\/powerlevel10k\"/g' /home/$SUDO_USER/.zshrc" || log_warn "Failed to set Powerlevel10k theme"
+    sudo -u "$SUDO_USER" --set-home mkdir -p "/home/$SUDO_USER/.oh-my-zsh/custom/themes" || log_error "Failed to create Powerlevel10k themes directory"
+    sudo -u "$SUDO_USER" --set-home git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/$SUDO_USER/.oh-my-zsh/custom/themes/powerlevel10k || log_error "Failed to install Powerlevel10k"
+    sudo -u "$SUDO_USER" --set-home sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' /home/$SUDO_USER/.zshrc || log_warn "Failed to set Powerlevel10k theme"
 fi
 
 log_info "Enabling Zsh plugins for user $SUDO_USER..."
-su - "$SUDO_USER" -c "echo 'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-autosuggestions"
-su - "$SUDO_USER" -c "echo 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-syntax-highlighting"
-su - "$SUDO_USER" -c "echo 'fpath=(/usr/share/zsh/site-functions /usr/share/zsh/functions/Completion/* \$fpath)' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-completions"
+sudo -u "$SUDO_USER" --set-home bash -c "echo 'source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-autosuggestions"
+sudo -u "$SUDO_USER" --set-home bash -c "echo 'source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-syntax-highlighting"
+sudo -u "$SUDO_USER" --set-home bash -c "echo 'fpath=(/usr/share/zsh/vendor-completions \$fpath)' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-completions"
 
 log_info "Shell enhancements, Oh My Zsh, and Powerlevel10k installation complete!"
-log_info "Run 'chsh -s /usr/bin/zsh' or 'chsh -s /usr/bin/fish' to switch shells."
+log_info "Run 'chsh -s /bin/zsh' to switch shell."
 log_info "Powerlevel10k is set as the Zsh theme with completions enabled. Run 'p10k configure' to customize it."
