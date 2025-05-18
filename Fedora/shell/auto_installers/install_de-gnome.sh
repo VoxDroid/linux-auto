@@ -47,8 +47,7 @@ dnf install -y \
 
 log_info "Installing additional GNOME themes and utilities..."
 dnf install -y \
-    papirus-icon-theme arc-theme \
-    gnome-shell-extension-manager || log_error "Failed to install additional themes and utilities"
+    papirus-icon-theme arc-theme || log_error "Failed to install additional themes and utilities"
 
 log_info "Installing AppIndicator extension..."
 dnf install -y gnome-shell-extension-appindicator || log_error "Failed to install GNOME extensions"
