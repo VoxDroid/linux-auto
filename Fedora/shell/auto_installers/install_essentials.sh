@@ -48,8 +48,15 @@ dnf install -y \
     NetworkManager || log_error "Failed to install essential applications"
 
 log_info "Installing Brave browser..."
-dnf install -y dnf-plugins-core || log_error "Failed to install dnf-plugins-core"
-dnf copr enable -y jerrycasiano/Brave-Browser || log_error "Failed to enable Brave Browser Copr repository"
+cat << EOF > /etc/yum.repos.d/brave-browser.repo
+[brave-browser]
+name=Brave Browser
+baseurl=https://brave-browser-rpm-release.s3.brave.com/\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+EOF
+rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc || log_error "Failed to import Brave GPG key"
 dnf install -y brave-browser || log_error "Failed to install Brave"
 
 log_info "Cleaning package cache..."
