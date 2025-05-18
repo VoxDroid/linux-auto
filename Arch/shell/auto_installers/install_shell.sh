@@ -61,6 +61,7 @@ log_info "Enabling Zsh plugins for user $SUDO_USER..."
 sudo -u "$SUDO_USER" --set-home bash -c "echo 'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-autosuggestions"
 sudo -u "$SUDO_USER" --set-home bash -c "echo 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-syntax-highlighting"
 sudo -u "$SUDO_USER" --set-home bash -c "echo 'fpath=(/usr/share/zsh/site-functions /usr/share/zsh/functions/Completion/* \$fpath)' >> /home/$SUDO_USER/.zshrc" || log_warn "Failed to enable zsh-completions"
+
 log_info "Shell enhancements, Oh My Zsh, and Powerlevel10k installation complete!"
 log_info "Run 'chsh -s /bin/zsh' to switch shell."
 log_info "Powerlevel10k is set as the Zsh theme with completions enabled. Run 'p10k configure' to customize it."
