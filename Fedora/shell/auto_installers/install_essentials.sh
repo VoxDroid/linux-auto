@@ -44,7 +44,7 @@ dnf install -y \
     eog nautilus \
     terminator tree \
     vim neovim \
-    neofetch tmux \
+    fastfetch tmux \
     NetworkManager || log_error "Failed to install essential applications"
 
 log_info "Installing Brave browser..."
