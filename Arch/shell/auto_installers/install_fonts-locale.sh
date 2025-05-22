@@ -53,7 +53,7 @@ pacman -S --needed --noconfirm \
     adobe-source-code-pro-fonts adobe-source-sans-pro-fonts adobe-source-serif-pro-fonts || log_error "Failed to install fonts"
 
 log_info "Installing Poppins Font..."
-sudo -u "$SUDO_USER" yay -S --needed --noconfirm ttf-poppins || log_error "Failed to install Poppins Font"
+sudo -u "$SUDO_USER" yay -S --needed --noconfirm ttf-poppins ttf-noto-nerd || log_error "Failed to install Poppins Font"
 
 log_info "Generating all locales..."
 sed -i 's/^#\([a-zA-Z0-9._-]\+\s\+[a-zA-Z0-9._-]\+\)/\1/' /etc/locale.gen || log_error "Failed to uncomment locales"
