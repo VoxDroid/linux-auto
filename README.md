@@ -86,7 +86,7 @@ The scripts are categorized by functionality and are available across supported 
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/linux-auto.git
+   git clone https://github.com/VoxDroid/linux-auto.git
    cd linux-auto
    ```
 
