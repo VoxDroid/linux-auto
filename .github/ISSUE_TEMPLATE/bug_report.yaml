@@ -1,0 +1,84 @@
+name: Bug Report
+description: Report a bug in an installation script or repository functionality
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug! Please provide as much detail as possible to help us resolve the issue with the automation scripts.
+  - type: input
+    id: script-name
+    attributes:
+      label: Affected Script
+      description: Which installation script is affected? (e.g., install_essentials.sh)
+      placeholder: e.g., install_essentials.sh
+    validations:
+      required: true
+  - type: dropdown
+    id: distribution
+    attributes:
+      label: Linux Distribution
+      description: Which Linux distribution are you using?
+      options:
+        - Arch Linux
+        - Debian
+        - Ubuntu
+        - Fedora
+        - Void Linux
+        - Other (please specify)
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear description of the bug.
+      placeholder: Describe the issue, including what you expected to happen and what actually occurred.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the bug.
+      placeholder: |
+        1. Navigate to the appropriate distribution directory
+        2. Run the script with `sudo ./shell/auto_installers/install_essentials.sh`
+        3. Observe the error during package installation
+        4. Check system logs for additional information
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Details
+      description: Your system environment details.
+      placeholder: |
+        - OS Version: [e.g., Arch Linux 2023.01.01]
+        - Kernel Version: [e.g., 6.1.1-arch1-1]
+        - Package Manager Version: [e.g., pacman 6.0.2]
+        - Shell: [e.g., bash 5.1.16]
+        - Any custom configurations or modifications
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Logs or Output
+      description: Paste any relevant error messages, logs, or script output.
+      placeholder: |
+        ```
+        Error output from the script execution:
+        [paste error messages here]
+        ```
+    validations:
+      required: false
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other context, screenshots, or relevant information about the bug.
+      placeholder: Include any workarounds you've tried, related issues, or additional context.
+    validations:
+      required: false

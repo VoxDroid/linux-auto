@@ -1,0 +1,82 @@
+name: Feature Request
+description: Suggest a new script, feature, or enhancement
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature or script! Please provide details to help us understand your idea and its potential implementation.
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of feature are you requesting?
+      options:
+        - New Installation Script
+        - Enhancement to Existing Script
+        - New Distribution Support
+        - Documentation Improvement
+        - Repository Structure Change
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: related-script
+    attributes:
+      label: Related Script (if applicable)
+      description: If this enhances an existing script, specify its name.
+      placeholder: e.g., install_devtools.sh
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the feature or new script you're proposing.
+      placeholder: I suggest adding a new installation script for [specific software/tool] that would automate the setup of [purpose].
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Explain the problem this solves or its real-world application.
+      placeholder: This script would help users quickly set up [tool/software] on [distribution], reducing manual installation steps and ensuring consistent configurations.
+    validations:
+      required: true
+  - type: dropdown
+    id: target-distributions
+    attributes:
+      label: Target Distributions
+      description: Which Linux distributions should this feature support?
+      multiple: true
+      options:
+        - Arch Linux
+        - Debian/Ubuntu
+        - Fedora/Red Hat
+        - Void Linux
+        - All distributions
+    validations:
+      required: true
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Proposed Implementation
+      description: Provide a rough idea of how this could be implemented.
+      placeholder: |
+        The script should:
+        - Install the following packages: [list packages]
+        - Configure [specific settings]
+        - Handle dependencies for [distributions]
+        - Include error checking and rollback options
+    validations:
+      required: false
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other context, references, or examples.
+      placeholder: Include links to official documentation, example configurations, or similar implementations in other projects.
+    validations:
+      required: false
