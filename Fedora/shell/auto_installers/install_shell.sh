@@ -30,6 +30,19 @@ fi
 log_info "Updating system..."
 dnf update -y || log_error "Failed to update system"
 
+log_info "Installing JetBrains Mono Nerd Font..."
+FONT_DIR="/home/$SUDO_USER/.local/share/fonts/JetBrainsMonoNerd"
+if [[ -d "$FONT_DIR" ]]; then
+    log_info "JetBrains Mono Nerd Font already installed, skipping..."
+else
+    FONT_VERSION=$(curl -fsSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep '"tag_name"' | head -1 | cut -d'"' -f4) || log_error "Failed to fetch latest Nerd Fonts version"
+    FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${FONT_VERSION}/JetBrainsMono.tar.xz"
+    sudo -u "$SUDO_USER" mkdir -p "$FONT_DIR" || log_error "Failed to create font directory"
+    curl -fsSL "$FONT_URL" | sudo -u "$SUDO_USER" tar -xJf - -C "$FONT_DIR" || log_error "Failed to download and extract JetBrains Mono Nerd Font"
+    fc-cache -fv || log_warn "Failed to rebuild font cache"
+    log_info "JetBrains Mono Nerd Font installed successfully"
+fi
+
 log_info "Installing shell enhancements..."
 dnf install -y \
     zsh fish zsh-autosuggestions zsh-syntax-highlighting \
